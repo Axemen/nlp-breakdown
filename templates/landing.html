@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>NLP Breakdown</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body class='bg-dark'>
+    <div class="container">
+        <div class="row rounded">
+            <div class="col-md-12 bg-dark">
+                <div class="jumbotron bg-dark text-light">
+                    <h1 class="text-center">NLP Breakdown!</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">
+                    Input your text here!
+                </h1>
+                <form action="/results" method="post" role='form'>
+                    <div class="form-group">
+                        <textarea class="form-control" name="input_text" id="input_text" rows="10"></textarea>
+                        <input type="submit" value='Submit' class='btn btn-primary btn-block'>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body class='bg-dark'>
+    <div class="container">
+        <div class="row bg-dark">
+            <div class="col-md-12 bg-dark">
+                <div class="jumbotron text-light bg-dark">
+                    <h1 class="text-center">NLP Breakdown!</h1>
+                </div>
+            </div>
+        </div>
+        <div class="gap"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">
+                    Input your text here!
+                </h1>
+                <form action="/results" method="post" role='form'>
+                    <div class="form-group">
+                        <textarea class="form-control" name="input_text" id="input_text" cols="10" rows="3"></textarea>
+                        <input type="submit" value='Submit' class='btn btn-primary btn-block'>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="gap"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">The Corpus:</h1>
+                <hr>
+                <p class="text-center">{{ user_input }}</p>
+            </div>
+        </div>
+        <div class="gap"></div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h1 class="text-center">
+                    The Sentences inside of the Corpus:
+                </h1>
+                <hr>
+                {% for sentence in processed_dict['sentences'] %}
+                <p class='list-inline-item'>{{ sentence }}</p>
+                <br>
+                {% endfor %}
+
+            </div>
+        </div>
+        <div class="gap"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">
+                    Tokenizing the sentences:
+                </h1>
+                <hr>
+                {% for tokens in processed_dict['tokens'] %}
+                <p class="text-center">{{ tokens }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="gap"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">10 Most common tokens</h1>
+                {{ token_count_bar }}
+            </div>
+        </div>
+        <div class="gap"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">
+                    Predicting the POS (Part of Speech)
+                </h1>
+                <hr>
+            </div>
+
+            <div class="col-md-12" style="max-height: 50vh; overflow: auto;">
+                <table class='table table-bordered table-hover'>
+                    <thead class='thead-dark'>
+                        <th class='text-center'>Word</th>
+                        <th class='text-center'>POS</th>
+                    </thead>
+                    <tbody>
+                        {% for pos_list in processed_dict['pos_lists'] %}
+                        {% for word in pos_list %}
+                        <tr>
+                            <td class='text-center'>{{ word[0] }}</td>
+                            <td class='text-center'>{{ word[1] }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="gap"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">
+                    Lemmatizing the words:
+                </h1>
+                <hr>
+                {% for sentence in processed_dict['lemma_list'] %}
+                <p class="text-center">
+                    {{ sentence }}
+                </p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="gap"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">Filtering Stop Words:</h1>
+                <hr>
+                {% for sentence in processed_dict['filtered_stop_words'] %}
+                <p class='text-center'>{{ sentence }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="gap"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">
+                    Finding Noun Chunks:
+                </h1>
+                <hr>
+                <div class="noun-chunks" style="max-height: 50vh; overflow: auto;">
+                    <table class='table table-bordered table-hover'>
+                        <thead class='thead-dark'>
+                            <th class='text-center'>Noun-Chunk</th>
+                            <th class='text-center'>Root Text</th>
+                            <th class='text-center'>Root Dependency</th>
+                            <th class='text-center'>Root Head Text</th>
+                        </thead>
+                        <tbody>
+                            {% for chunk in processed_dict['noun_chunks'] %}
+                            <tr>
+                                <td class='text-center'>{{ chunk[0] }}</td>
+                                <td class='text-center'>{{ chunk[1] }}</td>
+                                <td class='text-center'>{{ chunk[2] }}</td>
+                                <td class='text-center'>{{ chunk[3] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="gap"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">
+                    Finding Named Entities:
+                </h1>
+                <hr>
+                <div class="noun-chunks" style="max-height: 50vh; overflow: auto;">
+                    <table class='table table-bordered table-hover'>
+                        <thead class='thead-dark'>
+                            <th class='text-center'>Named Entitiy</th>
+                            <th class='text-center'>Label</th>
+                            <th class='text-center'>Label Explanation</th>
+                        </thead>
+                        <tbody style="max-height: 50vh; overflow: auto;">
+                            {% for chunk in processed_dict['named_entities'] %}
+                            <tr>
+                                <td class='text-center'>{{ chunk[0] }}</td>
+                                <td class='text-center'>{{ chunk[1] }}</td>
+                                <td class='text-center'>{{ chunk[2] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="gap"></div>
+        <div class="row">
+            <div class="col-md-12">
+                {{ ent_html }}
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

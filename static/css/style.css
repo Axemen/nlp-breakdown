@@ -1,0 +1,24 @@
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.title {
+    color: #ffffff;
+}
+
+#input_text {
+    margin-top: 10px;
+}
+
+div {
+    /* border-radius: 25px; */
+    border-color: #343a40;
+    background-color: #ffffff;
+}
+
+.gap {
+    min-height: 10vh;
+    background-color: #ffffff;
+}
+
